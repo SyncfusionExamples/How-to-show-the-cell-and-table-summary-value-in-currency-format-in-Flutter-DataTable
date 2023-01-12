@@ -1,21 +1,23 @@
-# How-to-show-the-cell-and-table-summary-value-in-currency-format-in-Flutter-DataTable
-
-The Syncfusion [Flutter DataGrid](https://www.syncfusion.com/flutter-widgets/flutter-datagrid) provides built-in support to display concise information about the rows by using the table summary rows. Table summary rows allow you to display summarized information about the rows in the DataGrid, such as the sum, average, maximum, and minimum value of a column. This can be useful when you want to provide a quick overview of the data in the DataGrid.
-In this article, we will show you how to format the column and its summary data in the DataGrid as a currency format. We will use the built-in table summary types provided by DataGrid to achieve this.
-
-## STEP 1:
-Import the following package in your project to access the table summary types provided by the DataGrid.
-
-```dart
+import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:intl/intl.dart';
 
-```
-## STEP 2:
-Initialize the [SfDataGrid](https://pub.dev/documentation/syncfusion_flutter_datagrid/latest/datagrid/SfDataGrid-class.html) widget with all the required properties. 
+void main() {
+  runApp(MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: const SfDataGridDemo()));
+}
 
-```dart
-late EmployeeDataSource _employeeDataSource;
+class SfDataGridDemo extends StatefulWidget {
+  const SfDataGridDemo({Key? key}) : super(key: key);
+
+  @override
+  SfDataGridDemoState createState() => SfDataGridDemoState();
+}
+
+class SfDataGridDemoState extends State<SfDataGridDemo> {
+  late EmployeeDataSource _employeeDataSource;
   List<Employee> employees = <Employee>[];
 
   @override
@@ -80,14 +82,23 @@ late EmployeeDataSource _employeeDataSource;
       ),
     );
   }
+}
 
-```
-## STEP 3: 
-Create a data source class by extending [DataGridSource](https://pub.dev/documentation/syncfusion_flutter_datagrid/latest/datagrid/DataGridSource-class.html) for mapping data to the SfDataGrid. In the [buildTableSummaryCellWidget](https://pub.dev/documentation/syncfusion_flutter_datagrid/latest/datagrid/DataGridSource/buildTableSummaryCellWidget.html) method, you can format the table summary value using the  [NumberFormat.currency](https://api.flutter.dev/flutter/intl/NumberFormat/NumberFormat.currency.html) constructor. This method is called for each table summary cell, and it returns the widget that should be displayed in the cell.
+List<Employee> getEmployeeData() {
+  return [
+    Employee(10001, 'Jack', 'Project Manager', 100000.0),
+    Employee(10002, 'Kathryn', 'Project Lead', 75000.0),
+    Employee(10003, 'Lara', 'Developer', 40000.0),
+    Employee(10004, 'Crowley', 'Designer', 32000.0),
+    Employee(10005, 'Landry', 'Developer', 32000.0),
+    Employee(10006, 'Adams', 'Developer', 33000.0),
+    Employee(10007, 'Perry', 'Developer', 34000.0),
+    Employee(10008, 'Balnc', 'Designer', 32000.0),
+    Employee(10009, 'Gable', 'Developer', 37000.0),
+    Employee(10010, 'Irvine', 'Developer', 35000.0)
+  ];
+}
 
-You can also format the cell value in the [buildRow](https://pub.dev/documentation/syncfusion_flutter_datagrid/latest/datagrid/DataGridSource/buildRow.html) method. This method is called for each row in the DataGrid, and it returns the widget that should be displayed in the row.
-
-```dart
 class EmployeeDataSource extends DataGridSource {
   EmployeeDataSource(List<Employee> employees) {
     buildDataGridRow(employees);
@@ -137,4 +148,11 @@ class EmployeeDataSource extends DataGridSource {
   }
 }
 
-```
+class Employee {
+  Employee(this.id, this.name, this.designation, this.salary);
+
+  final int id;
+  final String name;
+  final String designation;
+  final double salary;
+}
